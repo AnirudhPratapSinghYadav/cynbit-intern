@@ -1,0 +1,22 @@
+:root {
+  --bg: #f3f1eb;
+  --surface: #fffdf8;
+  --surface-2: #e8e6df;
+  --text: #11120f;
+  --muted: #6f7169;
+  --primary: #11120f;
+  --primary-hover: #31332e;
+  --accent: #c9f31d;
+  --accent-dim: rgba(201, 243, 29, 0.22);
+  --border: rgba(17, 18, 15, 0.14);
+  --border-strong: rgba(17, 18, 15, 0.3);
+  --radius: 2px;
+  --radius-sm: 2px;
+  --font-heading: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+  --pass: #238a5b;
+  --fail: #c74634;
+  --shadow: 0 18px 50px rgba(17, 18, 15, 0.1);
+  --glow: 0 0 50px rgba(201, 243, 29, 0.18);
+}
