@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server"
 const SANDBOX_CSP =
   "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' blob: data:; worker-src blob: data:; connect-src 'none'; frame-ancestors 'self'"
 
-function buildMainCsp(nonce: string) {
+function buildMainCsp() {
   return [
     "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`,
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: blob:",
     "font-src 'self' https://fonts.gstatic.com",
@@ -32,7 +32,7 @@ export function middleware(req: NextRequest) {
 
   res.headers.set(
     "Content-Security-Policy",
-    isSandbox ? SANDBOX_CSP : buildMainCsp(nonce)
+    isSandbox ? SANDBOX_CSP : buildMainCsp()
   )
   res.headers.set("X-Nonce", nonce)
   res.headers.set("Strict-Transport-Security", "max-age=63072000; includeSubDomains")
