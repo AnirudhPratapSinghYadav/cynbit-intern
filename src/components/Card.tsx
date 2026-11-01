@@ -10,9 +10,10 @@ export function Card({ children, glass, className, style, ...rest }: Props) {
     <div
       {...rest}
       style={{
-        background: glass ? "rgba(18,18,26,0.7)" : "var(--surface)",
+        background: glass ? "rgba(255,253,248,0.86)" : "var(--surface)",
         border: "1px solid var(--border)",
         borderRadius: "var(--radius)",
+        boxShadow: glass ? "var(--shadow)" : undefined,
         backdropFilter: glass ? "blur(16px)" : undefined,
         ...style,
       }}

@@ -37,7 +37,7 @@ export default async function ProofPage({ params }: Props) {
             Day Zero Proof
           </p>
           <h1 style={{ fontSize: "1.75rem", fontWeight: 700, lineHeight: 1.2, marginBottom: "0.5rem" }}>{proof.lab}</h1>
-          <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>{formatDate(proof.createdAt!)}</p>
+          <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>{proof.createdAt ? formatDate(proof.createdAt) : "Verified Day Zero"}</p>
         </div>
         <ProofStats challengeId={proof.challengeId} rounds={`${proof.rounds} of 3`} duration={formatMs(proof.durationMs)} />
 

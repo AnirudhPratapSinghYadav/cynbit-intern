@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 
 const SANDBOX_CSP =
-  "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' blob:; worker-src blob:; connect-src 'none'; frame-ancestors 'self'"
+  "default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' blob: data:; worker-src blob: data:; connect-src 'none'; frame-ancestors 'self'"
 
 function buildMainCsp(nonce: string) {
   return [

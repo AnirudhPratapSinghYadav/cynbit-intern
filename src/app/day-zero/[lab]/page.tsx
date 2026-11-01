@@ -4,6 +4,7 @@ import { challenges, testSuites } from "@/features/challenges"
 import { LabClient } from "./LabClient"
 
 type Props = { params: Promise<{ lab: string }> }
+export const instant = false
 
 export async function generateStaticParams() {
   return challenges.map((c) => ({ lab: c.id }))

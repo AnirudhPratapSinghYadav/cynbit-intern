@@ -14,32 +14,20 @@ export default async function OgImage({ params }: Props) {
   const duration = proof ? formatMs(proof.durationMs) : ""
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: 1200, height: 630, display: "flex", flexDirection: "column",
-          background: "#0a0a0f", color: "#e8e8f0", padding: "80px",
-          fontFamily: "system-ui, sans-serif",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "48px" }}>
-          <div style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#00d4aa" }} />
-          <span style={{ color: "#00d4aa", fontSize: 18, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Day Zero Proof</span>
-        </div>
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
-          <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>{lab}</div>
-          {duration && (
-            <div style={{ fontSize: 28, color: "#6b6b8a" }}>Completed in {duration}</div>
-          )}
-        </div>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ color: "#6b6b8a", fontSize: 20 }}>cynbit.in/bitelevate</span>
-          <div style={{ background: "#6c63ff", color: "#fff", padding: "12px 28px", borderRadius: "10px", fontSize: 20, fontWeight: 600 }}>
-            BitElevate
-          </div>
-        </div>
+    <div style={{ width: 1200, height: 630, display: "flex", flexDirection: "column", background: "#f3f1eb", color: "#11120f", padding: "72px", fontFamily: "Arial, sans-serif" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "14px", color: "#6f7169", fontSize: 18, fontWeight: 700, letterSpacing: "0.12em" }}>
+        <div style={{ width: 12, height: 12, background: "#c9f31d" }} />
+        CYNBIT / DAY ZERO
       </div>
-    ),
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div style={{ fontSize: 72, fontWeight: 800, lineHeight: 1, letterSpacing: "-0.06em" }}>{lab}</div>
+        <div style={{ marginTop: 24, color: "#6f7169", fontSize: 30 }}>Verified engineering proof{duration ? ` · ${duration}` : ""}</div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "end", borderTop: "1px solid #c9c8c0", paddingTop: 22, fontSize: 20 }}>
+        <span>PROVE YOU CAN SHIP.</span>
+        <div style={{ background: "#11120f", color: "#c9f31d", padding: "14px 22px", fontWeight: 700 }}>BIT ELEVATE ↗</div>
+      </div>
+    </div>,
     { ...size }
   )
 }
