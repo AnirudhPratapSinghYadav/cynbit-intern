@@ -4,14 +4,14 @@ import { verifyToken, signToken, freshNonce } from "@/server/security/signToken"
 import { reviewCode } from "@/features/reviewer/reviewCode"
 import { finishAttempt } from "@/server/attempt/finishAttempt"
 import { checkElapsed } from "@/server/attempt/checkElapsed"
-import { submitLimiter } from "@/server/security/limiter"
+import { limitRequest } from "@/server/security/limiter"
 import { clientIp } from "@/server/security/clientIp"
 
 const MAX_ROUNDS = 3
 
 export async function POST(req: NextRequest) {
   const ip = await clientIp()
-  const { success, reset } = await submitLimiter.limit(ip)
+  const { success, reset } = await limitRequest(`submit:${ip}`, 60_000, 30)
   if (!success) {
     return NextResponse.json({ code: "RATE_LIMITED" }, { status: 429, headers: { "Retry-After": String(Math.ceil((reset - Date.now()) / 1000)) } })
   }

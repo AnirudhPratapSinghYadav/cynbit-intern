@@ -3,15 +3,13 @@ import type { Metadata } from "next"
 import { getProof } from "@/server/db/proofs"
 import { buildQr } from "@/features/proof/buildQr"
 import { formatMs, formatDate } from "@/lib/time"
-import { env } from "@/server/env"
 import { Card } from "@/components/Card"
 import { ProofActions } from "@/components/ProofActions"
 import { ProofStats } from "@/components/ProofStats"
-
+import { env } from "@/server/env"
 type Props = { params: Promise<{ id: string }> }
 export const instant = false
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   return {
@@ -20,11 +18,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: { images: [`/proof/${id}/opengraph-image`] },
   }
 }
-
 export default async function ProofPage({ params }: Props) {
   const { id } = await params
   if (!UUID_RE.test(id)) notFound()
-  const proof = await getProof(id)
+  const proof = env.isDemoMode ? {
+    challengeId: "demo-challenge",
+    lab: "BitElevate Engineering Lab",
+    rounds: 1,
+    durationMs: 720000,
+    createdAt: new Date(),
+  } : await getProof(id)
   if (!proof) notFound()
   const proofUrl = `${env.SITE_URL}/proof/${id}`
   const qrSvg = await buildQr(proofUrl)
@@ -40,7 +43,6 @@ export default async function ProofPage({ params }: Props) {
           <p style={{ color: "var(--muted)", fontSize: "0.9rem" }}>{proof.createdAt ? formatDate(proof.createdAt) : "Verified Day Zero"}</p>
         </div>
         <ProofStats challengeId={proof.challengeId} rounds={`${proof.rounds} of 3`} duration={formatMs(proof.durationMs)} />
-
         <div style={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}>
           <div
             dangerouslySetInnerHTML={{ __html: qrSvg }}
@@ -48,9 +50,7 @@ export default async function ProofPage({ params }: Props) {
             aria-label={`QR code linking to ${proofUrl}`}
           />
         </div>
-
         <ProofActions proofUrl={proofUrl} enrollUrl={enrollUrl} lab={proof.lab} />
-
         <p style={{ color: "var(--muted)", fontSize: "0.75rem", textAlign: "center", lineHeight: 1.5 }}>
           Day Zero is a trial exercise. It is not a BitElevate certificate.
         </p>

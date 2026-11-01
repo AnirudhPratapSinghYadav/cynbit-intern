@@ -1,6 +1,8 @@
 import { consumeNonce } from "./consumeNonce"
 import { insertProof } from "@/server/db/proofs"
 import { challenges } from "@/features/challenges"
+import { env } from "@/server/env"
+import { randomUUID } from "crypto"
 
 export async function finishAttempt(params: {
   challengeId: string
@@ -13,6 +15,7 @@ export async function finishAttempt(params: {
   const challenge = challenges.find((c) => c.id === params.challengeId)
   const lab = challenge?.lab ?? params.challengeId
   const durationMs = Date.now() - params.startedAtMs
+  if (env.isDemoMode) return randomUUID()
   return insertProof({
     challengeId: params.challengeId,
     lab,
